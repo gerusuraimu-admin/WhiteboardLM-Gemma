@@ -2,3 +2,6 @@ fastapi
 pydantic
 uvicorn[standard]
 python-magic
+google
+google-cloud-firestore
+firebase-admin

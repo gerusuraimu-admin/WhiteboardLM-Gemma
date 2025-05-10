@@ -29,7 +29,9 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
 
     logger.info('===== API server start =====')
     logger.info('API App: %s', app)
+
     yield
+
     logger.info('===== API server stop =====')
 
 
@@ -59,7 +61,6 @@ async def embed(payload: EmbedPayload) -> JSONResponse:
     try:
         logger.info('Embed request received: %s', payload.model_dump())
 
-        # TODO Embed処理実装
         result = embed_process(payload)
         if result is None:
             raise RuntimeError('Query failed')
@@ -69,6 +70,15 @@ async def embed(payload: EmbedPayload) -> JSONResponse:
             status_code=200,
             content={'message': 'Embed successfully'}
         )
+
+    except FileNotFoundError as e:
+        logger.error('Embed failed')
+        logger.exception(e)
+        return JSONResponse(
+            status_code=404,
+            content={'message': 'Embed failed', 'details': str(e)}
+        )
+
     except Exception as e:
         logger.error('Embed failed')
         logger.exception(e)
@@ -95,7 +105,6 @@ async def query(payload: QueryPayload) -> JSONResponse:
         logger.info('Query request received: %s', payload.model_dump())
         logger.info(payload)
 
-        # TODO Query処理実装
         result = query_process(payload)
         if result is None:
             raise RuntimeError('Query failed')
@@ -105,6 +114,7 @@ async def query(payload: QueryPayload) -> JSONResponse:
             status_code=200,
             content={'message': 'Query successfully'}
         )
+
     except Exception as e:
         logger.error('Query failed')
         logger.exception(e)
