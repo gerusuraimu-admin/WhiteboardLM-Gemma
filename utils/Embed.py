@@ -2,7 +2,7 @@
 from random import choice
 
 from typing import Optional
-from utils import EmbedPayload
+from utils.Payload import EmbedPayload
 
 
 def embed_process(payload: EmbedPayload):

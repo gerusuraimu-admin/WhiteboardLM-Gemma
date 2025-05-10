@@ -2,7 +2,7 @@
 from random import choice
 
 from typing import Optional
-from utils import QueryPayload
+from utils.Payload import QueryPayload
 
 
 def query_process(payload: QueryPayload):
