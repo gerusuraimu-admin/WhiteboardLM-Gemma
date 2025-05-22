@@ -10,8 +10,8 @@ db = firestore.Client()
 def embed_process(payload: EmbedPayload) -> List[List[float]]:
     # data: bytes = read_file_from_gcs(payload.path, os.environ['BUCKET'])
     data: bytes = read_file_from_gcs(payload.path, 'whiteboardlm-v1.firebasestorage.app')
-    print(data)
     mime: str = detect_mime(data)
+    print(f'mimetpye: {mime}')
     doc_type: DocType = DocType.from_mime(mime)
     vectors: List[List[float]] = doc_type.handler(data)
 
@@ -25,7 +25,6 @@ def embed_process(payload: EmbedPayload) -> List[List[float]]:
 def save_embedding(payload: EmbedPayload, embedding: List[List[float]]):
     try:
         doc_id = '_'.join(payload.path.split('/')[1:])
-        print(doc_id)  # doc_idが正常なフォーマットか確認したい。
         doc_ref = db.collection('documents').document(doc_id)
 
         if not doc_ref.get().exists:
@@ -41,7 +40,6 @@ def read_file_from_gcs(path: str, bucket_name: str) -> bytes:
         client = storage.Client()
         bucket = client.bucket(bucket_name)
         blob = bucket.blob(path)
-        print(blob)
 
         if not blob.exists():
             raise FileNotFoundError('GCSファイルが見つかりません')

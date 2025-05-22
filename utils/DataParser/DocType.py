@@ -12,7 +12,6 @@ class DocType(Enum):
 
     @classmethod
     def from_mime(cls, mime_type: str) -> 'DocType':
-        print(mime_type)
         for doc_type in cls:
             if doc_type.mime == mime_type:
                 return doc_type
