@@ -15,5 +15,6 @@ class DocType(Enum):
         for doc_type in cls:
             if doc_type.mime == mime_type:
                 return doc_type
+        return DocType.txt
 
-        raise TypeError('ファイルタイプが判定できませんでした')
+        # raise TypeError('ファイルタイプが判定できませんでした')
