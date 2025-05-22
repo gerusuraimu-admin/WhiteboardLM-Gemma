@@ -2,7 +2,7 @@
 ファイルアップロード時のベクトル化とLLM関連の中継エンドポイント
 """
 
-from typing import AsyncGenerator
+from typing import List, AsyncGenerator
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
@@ -61,9 +61,7 @@ async def embed(payload: EmbedPayload) -> JSONResponse:
     try:
         logger.info('Embed request received: %s', payload.model_dump())
 
-        result = embed_process(payload)
-        if result is None:
-            raise RuntimeError('Query failed')
+        result: List[List[float]] = embed_process(payload)
 
         logger.info('Embed successfully: %s', result)
         return JSONResponse(

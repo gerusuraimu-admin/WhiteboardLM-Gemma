@@ -4,4 +4,5 @@ uvicorn[standard]
 python-magic
 google
 google-cloud-firestore
+google-cloud-aiplatform
 firebase-admin
