@@ -4,7 +4,7 @@ from utils.DataParser.TextParser import text2vec
 
 
 class DocType(Enum):
-    txt = ('text/plane', text2vec)
+    txt = ('text/plain', text2vec)
 
     def __init__(self, mime: str, handler: Callable) -> None:
         self.mime = mime
@@ -15,6 +15,5 @@ class DocType(Enum):
         for doc_type in cls:
             if doc_type.mime == mime_type:
                 return doc_type
-        return DocType.txt
 
-        # raise TypeError('ファイルタイプが判定できませんでした')
+    raise TypeError('ファイルタイプが判定できませんでした')
