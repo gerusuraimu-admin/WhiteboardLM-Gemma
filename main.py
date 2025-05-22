@@ -61,7 +61,7 @@ async def embed(payload: EmbedPayload) -> JSONResponse:
     try:
         logger.info('Embed request received: %s', payload.model_dump())
 
-        result: List[List[float]] = embed_process(payload)
+        result: str = embed_process(payload)
 
         logger.info('Embed successfully: %s', result)
         return JSONResponse(

@@ -8,7 +8,7 @@ from utils.DataParser import DocType
 db = firestore.Client()
 
 
-def embed_process(payload: EmbedPayload) -> List[List[float]]:
+def embed_process(payload: EmbedPayload) -> str:
     # data: bytes = read_file_from_gcs(payload.path, os.environ['BUCKET'])
     data: bytes = read_file_from_gcs(payload.path, 'whiteboardlm-v1.firebasestorage.app')
     mime: str = detect_mime(data)
@@ -21,7 +21,7 @@ def embed_process(payload: EmbedPayload) -> List[List[float]]:
     flat_vectors: List[float] = list(chain.from_iterable(vectors))
 
     save_embedding(payload, flat_vectors)
-    return vectors
+    return mime
 
 
 def save_embedding(payload: EmbedPayload, embedding: List[float]):
