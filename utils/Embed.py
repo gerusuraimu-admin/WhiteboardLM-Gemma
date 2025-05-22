@@ -1,4 +1,5 @@
 from typing import List
+from itertools import chain
 import magic
 from google.cloud import storage, firestore
 from utils.Payload import EmbedPayload
@@ -17,12 +18,13 @@ def embed_process(payload: EmbedPayload) -> List[List[float]]:
 
     if not vectors:
         raise ValueError('Vectors cannot be empty')
+    flat_vectors: List[float] = list(chain.from_iterable(vectors))
 
-    save_embedding(payload, vectors)
+    save_embedding(payload, flat_vectors)
     return vectors
 
 
-def save_embedding(payload: EmbedPayload, embedding: List[List[float]]):
+def save_embedding(payload: EmbedPayload, embedding: List[float]):
     try:
         doc_id = '_'.join(payload.path.split('/')[1:])
         doc_ref = db.collection('documents').document(doc_id)
