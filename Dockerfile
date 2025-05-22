@@ -6,8 +6,8 @@ COPY ./utils /app/utils
 COPY ./main.py /app/main.py
 COPY ./requirements.txt /app/requirements.txt
 
-RUN sudo apt-get update
-RUN sudo apt-get install -y libmagic1 libmagic-dev
+RUN apt-get update
+RUN apt-get install -y libmagic1 libmagic-dev
 
 RUN pip install --no-cache-dir --upgrade pip
 RUN pip install --no-cache-dir -r /app/requirements.txt
