@@ -9,7 +9,7 @@ db = firestore.Client()
 
 def embed_process(payload: EmbedPayload) -> List[List[float]]:
     # data: bytes = read_file_from_gcs(payload.path, os.environ['BUCKET'])
-    data: bytes = read_file_from_gcs(payload.path, 'whiteboardlm-v1')
+    data: bytes = read_file_from_gcs(payload.path, 'whiteboardlm-v1.firebasestorage.app')
     mime: str = detect_mime(data)
     doc_type: DocType = DocType.from_mime(mime)
     vectors: List[List[float]] = doc_type.handler(data)
@@ -40,6 +40,7 @@ def read_file_from_gcs(path: str, bucket_name: str) -> bytes:
         client = storage.Client()
         bucket = client.bucket(bucket_name)
         blob = bucket.blob(path)
+        print(blob)
 
         if not blob.exists():
             raise FileNotFoundError('GCSファイルが見つかりません')
