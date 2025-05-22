@@ -1,4 +1,3 @@
-import os
 from typing import List
 import magic
 from google.cloud import storage, firestore
@@ -9,7 +8,8 @@ db = firestore.Client()
 
 
 def embed_process(payload: EmbedPayload) -> List[List[float]]:
-    data: bytes = read_file_from_gcs(payload.path, os.environ['BUCKET'])
+    # data: bytes = read_file_from_gcs(payload.path, os.environ['BUCKET'])
+    data: bytes = read_file_from_gcs(payload.path, 'whiteboardlm-v1')
     mime: str = detect_mime(data)
     doc_type: DocType = DocType.from_mime(mime)
     vectors: List[List[float]] = doc_type.handler(data)
