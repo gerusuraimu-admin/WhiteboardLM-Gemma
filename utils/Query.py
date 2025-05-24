@@ -4,6 +4,7 @@ from typing import List
 from itertools import chain
 from utils.Payload import QueryPayload
 from google.cloud import storage, firestore
+from vertexai import init
 from vertexai.generative_models import GenerativeModel, Part
 from vertexai.language_models import TextEmbeddingInput, TextEmbeddingModel
 
@@ -69,6 +70,7 @@ def read_file_from_gcs(path: str, bucket_name: str) -> bytes:
 
 
 def llm_prompt(message: str, doc: str) -> str:
+    init(project='whiteboardlm-v1', location='us-central1')
     model = GenerativeModel('gemini-pro')
 
     prompt = f"""
