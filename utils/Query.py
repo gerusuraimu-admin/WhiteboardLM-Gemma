@@ -34,9 +34,11 @@ def query_process(payload: QueryPayload) -> str:
         doc = read_file_from_gcs(best_doc.get('path'), 'whiteboardlm-v1.firebasestorage.app')
         if not doc.strip():
             doc = '参考文書なし'
-        return llm_prompt(payload.message, doc)
+        # return llm_prompt(payload.message, doc)
+        return doc
     else:
-        return llm_prompt(payload.message, '参考文書なし')
+        # return llm_prompt(payload.message, '参考文書なし')
+        return '参考文書なし'
 
 
 def embedding(text: str) -> List[List[float]]:
