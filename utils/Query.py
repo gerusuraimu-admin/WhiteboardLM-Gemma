@@ -11,7 +11,7 @@ db = firestore.Client()
 
 
 def query_process(payload: QueryPayload) -> str:
-    vectors: List[List[float]] = embedding(payload.text)
+    vectors: List[List[float]] = embedding(payload.message)
     flat_vectors = list(chain.from_iterable(vectors))
 
     docs = db.collection('documents').where('uid', '==', payload.uid).stream()
