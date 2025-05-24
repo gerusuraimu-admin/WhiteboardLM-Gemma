@@ -104,8 +104,6 @@ async def query(payload: QueryPayload) -> JSONResponse:
         logger.info(payload)
 
         result = query_process(payload)
-        if result is None:
-            raise RuntimeError('Query failed')
 
         logger.info('Query successfully: %s', result)
         return JSONResponse(
