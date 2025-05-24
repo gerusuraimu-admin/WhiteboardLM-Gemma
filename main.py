@@ -108,7 +108,7 @@ async def query(payload: QueryPayload) -> JSONResponse:
         logger.info('Query successfully: %s', result)
         return JSONResponse(
             status_code=200,
-            content={'message': 'Query successfully'}
+            content={'message': result}
         )
 
     except Exception as e:
