@@ -12,7 +12,6 @@ def embed_process(payload: EmbedPayload) -> str:
     # data: bytes = read_file_from_gcs(payload.path, os.environ['BUCKET'])
     data: bytes = read_file_from_gcs(payload.path, 'whiteboardlm-v1.firebasestorage.app')
     mime: str = detect_mime(data)
-    print(f'mimetpye: {mime}')
     doc_type: DocType = DocType.from_mime(mime)
     vectors: List[List[float]] = doc_type.handler(data)
 
