@@ -19,7 +19,7 @@ def embedding(text: str) -> List[List[float]]:
     dimensionality = 256
     task = 'RETRIEVAL_DOCUMENT'
 
-    model = TextEmbeddingModel.from_pretrained('text-multilingual-embedding-002')
+    model = TextEmbeddingModel.from_pretrained('text-embedding-005')
     inputs = [TextEmbeddingInput(text, task)]
     kwargs = dict(output_dimensionality=dimensionality) if dimensionality else {}
     embeddings = model.get_embeddings(inputs, **kwargs)

@@ -2,7 +2,7 @@
 ファイルアップロード時のベクトル化とLLM関連の中継エンドポイント
 """
 
-from typing import List, AsyncGenerator
+from typing import AsyncGenerator
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
